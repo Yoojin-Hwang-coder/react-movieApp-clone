@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { API_KEY, API_URL, IMAGE_BASE_URL } from '../../../Config';
-import MainImage from './Sections/MainImage';
+import MainImage from '../common/MainImage';
 import GridCards from '../common/GridCards';
 import { Row, Button } from 'antd';
 
@@ -56,6 +56,7 @@ function LandingPage() {
             Movies.map((movies, index) => (
               <React.Fragment key={index}>
                 <GridCards
+                  landingPage
                   image={
                     movies.poster_path
                       ? `${IMAGE_BASE_URL}w500${movies.poster_path}`
