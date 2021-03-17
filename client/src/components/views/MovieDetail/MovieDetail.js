@@ -5,6 +5,7 @@ import { Button, Row } from 'antd';
 import MainImage from '../common/MainImage';
 import MovieInfo from './Sections/MovieInfo';
 import GridCards from '../common/GridCards';
+import Favorite from './Sections/Favorite';
 
 function MovieDetail(props) {
   let movieId = props.match.params.movieId;
@@ -21,14 +22,12 @@ function MovieDetail(props) {
       .then((response) => response.json())
       .then((response) => {
         setMovie(response);
-        console.log(Movie);
       });
 
     fetch(endPointCrew)
       .then((response) => response.json())
       .then((response) => {
         setCasts(response.cast);
-        console.log(response.cast);
       });
   }, []);
 
@@ -50,6 +49,12 @@ function MovieDetail(props) {
       {/* body */}
 
       <div style={{ width: '85%', margin: '1rem auto' }}>
+        {/* Favorit btn */}
+        <Favorite
+          movieInfo={Movie}
+          movieId={movieId}
+          userFrom={localStorage.getItem('userId')}
+        />
         {/* movie info */}
 
         {Movie && <MovieInfo movie={Movie} />}

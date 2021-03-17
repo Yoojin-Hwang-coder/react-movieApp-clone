@@ -1,7 +1,6 @@
 import React from 'react';
 import { Menu } from 'antd';
 import axios from 'axios';
-import { USER_SERVER } from '../../../../Config';
 import { withRouter } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -9,9 +8,11 @@ function RightMenu(props) {
   const user = useSelector((state) => state.user);
 
   const logoutHandler = () => {
-    axios.get(`${USER_SERVER}/logout`).then((response) => {
+    axios.get('/api/users/logout').then((response) => {
       if (response.status === 200) {
+        window.localStorage.removeItem('userId');
         props.history.push('/login');
+        alert('로그아웃 되었습니다');
       } else {
         alert('Log Out Failed');
       }
@@ -32,6 +33,11 @@ function RightMenu(props) {
   } else {
     return (
       <Menu mode={props.mode}>
+        <Menu.Item key='create'>
+          <a href='/video/upload'>
+            <img src />
+          </a>
+        </Menu.Item>
         <Menu.Item key='logout'>
           <a onClick={logoutHandler}>Logout</a>
         </Menu.Item>
