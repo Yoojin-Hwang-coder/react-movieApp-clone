@@ -7,6 +7,7 @@ import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import NavBar from './components/views/NavBar/NavBar';
 import Auth from './hoc/auth';
 import MovieDetail from './components/views/MovieDetail/MovieDetail';
+import FavoritePage from './components/views/Favorite/FavoritePage';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             path='/movie/:movieId'
             component={Auth(MovieDetail, null)}
           />
+          <Route exact path='/favorite' component={Auth(FavoritePage, true)} />
         </Switch>
       </div>
     </Suspense>

@@ -1,0 +1,26 @@
+table {
+  margin-top: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+thead td,
+th {
+  border: 1px solid #8b8b8b;
+  text-align: center;
+  padding: 8px;
+  font-size: large;
+}
+
+tbody td,
+th {
+  border: 1px solid #8b8b8b;
+  text-align: center;
+  padding: 8px;
+  font-size: medium;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
