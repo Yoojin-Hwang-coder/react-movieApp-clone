@@ -23,7 +23,6 @@ function Favorite(props) {
   useEffect(() => {
     Axios.post('/api/favorite/favoritenumber', variables).then((response) => {
       if (response.data.success) {
-        console.log(response.data);
         setFavoriteNumber(response.data.favoriteNumber);
       } else {
         alert('좋아요 숫자를 가져오지 못했습니다');
@@ -32,7 +31,6 @@ function Favorite(props) {
 
     Axios.post('/api/favorite/favorited', variables).then((response) => {
       if (response.data.success) {
-        console.log(response.data);
         setFavorited(response.data.favorited);
       } else {
         alert('좋아요 정보를 가져오지 못했습니다');
