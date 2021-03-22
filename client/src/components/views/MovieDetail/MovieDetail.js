@@ -6,13 +6,17 @@ import MainImage from '../common/MainImage';
 import MovieInfo from './Sections/MovieInfo';
 import GridCards from '../common/GridCards';
 import Favorite from './Sections/Favorite';
+import Comments from './Sections/Comment';
+import Axios from 'axios';
 
 function MovieDetail(props) {
-  let movieId = props.match.params.movieId;
+  console.log(props);
+  const movieId = props.match.params.movieId;
 
   const [Movie, setMovie] = useState([]);
   const [Casts, setCasts] = useState([]);
   const [ActorToggle, setActorToggle] = useState(false);
+  const [CommentLists, setCommentLists] = useState([]);
 
   useEffect(() => {
     let endPointCrew = `${API_URL}movie/${movieId}/credits?api_key=${API_KEY}&language=ko-Korean&page`;
@@ -29,10 +33,26 @@ function MovieDetail(props) {
       .then((response) => {
         setCasts(response.cast);
       });
+
+    const Variable = {
+      movieId: movieId,
+    };
+    Axios.post('/api/comment/getComments', Variable).then((response) => {
+      if (response.data.success) {
+        console.log(response.data);
+        setCommentLists(response.data.comments);
+      } else {
+        alert('Failed to get comments Info');
+      }
+    });
   }, []);
 
   const toggleActorView = () => {
     setActorToggle(!ActorToggle);
+  };
+
+  const updateComment = (newComment) => {
+    setCommentLists(CommentLists.concat(newComment));
   };
 
   return (
@@ -56,13 +76,10 @@ function MovieDetail(props) {
           userFrom={localStorage.getItem('userId')}
         />
         {/* movie info */}
-
         {Movie && <MovieInfo movie={Movie} />}
-
         <br />
         {/* Actors grid */}
         <hr />
-
         <div
           style={{
             display: 'flex',
@@ -75,7 +92,6 @@ function MovieDetail(props) {
             View Actors
           </Button>
         </div>
-
         {ActorToggle && (
           <Row gutter={[25, 25]}>
             {Casts &&
@@ -92,6 +108,13 @@ function MovieDetail(props) {
               ))}
           </Row>
         )}
+        {/* Comments */}
+        <Comments
+          movieTitle={Movie.original_title}
+          CommentLists={CommentLists}
+          movieId={movieId}
+          refreshFunction={updateComment}
+        />
       </div>
     </div>
   );

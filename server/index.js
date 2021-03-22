@@ -29,6 +29,8 @@ mongoose
 
 app.use('/api/users', require('./route/users'));
 app.use('/api/favorite', require('./route/favorite'));
+app.use('/api/comment', require('./route/comment'));
+app.use('/api/like', require('./route/like'));
 
 app.use('/uploads', express.static('uploads'));
 
